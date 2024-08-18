@@ -1,0 +1,50 @@
+Todo App
+ 
+
+ 1. setup express server : done
+ 2. mongodb connection : done
+ 3. set the engine of express to EJS : done
+ 4. set the client side pages : done
+    i. Create Register page : done
+    ii. Create login page : done
+ 5. set the apis : done
+    i. Create api for Register: done
+    ii. Create api for login: done
+ 6. Implement session based auth: done
+ 7. add middleware to protect the apis: done
+ 8. Create Dashboard page: done
+ 9. create pvt apis for logout : done
+ and logout from all the devices : not-done
+
+
+
+ 10. Todo apis
+    i. Create api : done
+    ii Read api : done
+    iii. Delete api : done
+    iv. Update api : done
+
+
+11. Build dashboard(client side : axios) : done
+    i. axios Create api : done
+    ii axios Read api : done
+    iii. axios Delete api : done
+    iv. axios Update api : done
+
+
+12. Pagination and Ratelimiting
+
+
+13. JWT Email authentication
+
+
+
+
+
+//create ejs page for home api, to redirect on register and login page
+
+//create Todo
+todo schema (todo, username) --> todoModel
+create api, POST /create-item
+data validation
+save it to DB

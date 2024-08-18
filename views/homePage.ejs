@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e8f0f2;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 80%;
+    margin: 20px;
+}
+
+h1 {
+    color: #4CAF50;
+    margin-bottom: 20px;
+    font-size: 2.8em;
+    font-weight: 700;
+}
+
+p {
+    color: #555;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.instructions {
+    margin-bottom: 30px;
+    font-size: 1.1em;
+}
+
+.instructions strong {
+    color: #4CAF50;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.btn-register {
+    background-color: #28a745;
+}
+
+.btn-register:hover {
+    background-color: #218838;
+}
+
+.btn-login {
+    background-color: #007bff;
+}
+
+.btn-login:hover {
+    background-color: #0056b3;
+}
+
+@media (min-width: 1024px) {
+    .container {
+        padding: 60px;
+        max-width: 800px;
+    }
+
+    h1 {
+        font-size: 3.5em;
+    }
+
+    p {
+        font-size: 1.4em;
+    }
+
+    .instructions {
+        font-size: 1.3em;
+    }
+
+    button {
+        padding: 20px 40px;
+        font-size: 1.5em;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Ultimate To-Do App</h1>
+        <p>Transform the way you manage your tasks with the most intuitive and powerful To-Do app</p>
+        <p class="instructions">If you're a new user, click on <strong>Register</strong>. If you're already registered, click on <strong>Login</strong>.</p>
+        <div class="button-group">
+            <form action='/register' method="GET">
+                <button class="btn-register">Register</button>
+            </form>
+            <form action='/login' method="GET">
+                <button class="btn-login">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

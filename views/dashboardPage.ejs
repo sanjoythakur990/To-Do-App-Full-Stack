@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple To-Do App</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<style>
+  body {
+  background-color: #f8f9fa;
+  font-family: 'Arial', sans-serif;
+}
+
+h1 {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.lead {
+  color: #6c757d;
+}
+
+.jumbotron {
+  border-radius: 12px;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+}
+
+.input-field {
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.add_item {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: #ffffff;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add_item:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+  transform: scale(1.05);
+}
+
+.list-group-item {
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logout {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #ffffff;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logout:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .d-flex {
+    flex-direction: column !important;
+  }
+
+  .input-field {
+    margin-bottom: 15px;
+  }
+}
+
+</style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="text-center mb-4">
+      <h1 class="display-4">To-Do App</h1>
+      <p class="lead">The best place to organize your tasks efficiently and effectively.</p>
+    </div>
+
+    <div class="jumbotron p-4 shadow-lg rounded bg-custom">
+      <div class="d-flex flex-column flex-md-row align-items-center">
+        <input id="create_field" name='todo' autofocus autocomplete="off" class="form-control mr-0 mr-md-3 input-field mb-3 mb-md-0" type="text" placeholder="Enter your new task here...">
+        <button class="add_item btn btn-custom btn-lg">Add New Item</button>
+      </div>
+    </div>
+
+    <ul id="item_list" class="list-group mb-5">
+      <!-- List items will be injected here by JavaScript -->
+    </ul>
+
+    <div class="text-center">
+      <button class="logout btn btn-danger btn-lg">Logout</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+  <script src="browser.js"></script>
+</body>
+</html>
