@@ -12,6 +12,7 @@ const rateLimiting= async (req, res, next)=>{
             const accessObbj= new accessModel({sessionId: sid, time: Date.now()})
             await accessObbj.save() 
             next()
+            return
         }
 
         console.log((Date.now() - accessEntry.time)/1000);    // converting milliseconds into second
