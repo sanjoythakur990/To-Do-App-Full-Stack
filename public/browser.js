@@ -1,13 +1,17 @@
+let skip=0
+
 window.onload= generateTodos
 
 function generateTodos(){
-    axios.get("/read-item").then((res)=>{
+    axios.get(`/read-item?skip=${skip}`).then((res)=>{
         console.log(res);
         if(res.data.status!== 200){
             alert(res.data.message)
         }
         const todos= res.data.data
-        console.log(todos);
+
+        skip+=todos.length
+
         console.log(document.getElementById("item_list"));
         document.getElementById("item_list").insertAdjacentHTML("beforeend", todos.map((item)=>{
             return `<div>
@@ -60,7 +64,6 @@ document.addEventListener("click", (e)=>{
     }
     //create
     else if(e.target.classList.contains("add_item")){
-        console.log("Add me clicked");
         const todo= document.getElementById("create_field").value;
         axios.post("create-item", {todo})
         .then((res)=>{
@@ -99,6 +102,10 @@ document.addEventListener("click", (e)=>{
             }
         })
         .catch((err)=> console.log(err))
+    }
+    // show more
+    else if(e.target.classList.contains("show-more")){
+        generateTodos()    // pagination done
     }
 })
 

@@ -32,7 +32,9 @@ Todo App
     iv. axios Update api : done
 
 
-12. Pagination and Ratelimiting
+12. Pagination: done
+ and Ratelimiting : done
+ Deploy: 
 
 
 13. JWT Email authentication

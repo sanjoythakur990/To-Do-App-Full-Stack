@@ -13,6 +13,7 @@ const userModel = require('./models/userModel');
 const isAuth = require('./middleware/authMiddleware');
 const todoModel = require('./models/todoModel');
 const todovalidation = require('./utils/blogUtils');
+const rateLimiting = require('./middleware/rateLimiting');
 
 
 // constants
@@ -177,7 +178,7 @@ app.post("/logout", isAuth, (req, res)=>{
 
 
 // todo apis
-app.post("/create-item", isAuth, async (req,res)=>{
+app.post("/create-item", isAuth, rateLimiting, async (req,res)=>{
     // validation 
     // console.log(req.body);
     // console.log("session", req.session);
@@ -202,17 +203,32 @@ app.post("/create-item", isAuth, async (req,res)=>{
     }
     catch(err){
         console.log(err);
-        return res.json({message: "Internal server error", data: err})
+        return res.status(500).json({message: "Internal server error", data: err})
     }
 })
 
 app.get("/read-item", isAuth, async (req, res)=>{
     const username= req.session.user.username
-
+    const SKIP= Number(req.query.skip) || 0
+    const LIMIT= 5
+    console.log(SKIP);
     try {
-        const todoEntry= await todoModel.find({username: username})
-        // console.log("hey boss");
-        // console.log(todoEntry);
+        // const todoEntry= await todoModel.find({username: username})
+        // mongoDb aggregate method
+        // pagination(skip, limit), match
+
+        const todoEntry= await todoModel.aggregate([ // this aggregate method is not part of mongoose, it's part of mongoDb. u can read it from mongoDb documentation
+            {
+                $match: {username: username} // if u keep the inner curly braces empty, you'll get all the todos present in db
+            },
+            {
+                $skip: SKIP
+            },
+            {
+                $limit: LIMIT
+            }
+        ])
+        console.log(todoEntry);
         if(todoEntry.length===0){
             return res.send({
                 status: 204,  // 204 is status for no content
