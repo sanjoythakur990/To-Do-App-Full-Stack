@@ -5,6 +5,7 @@ var clc = require("cli-color");
 const bcrypt= require('bcryptjs')
 const session= require('express-session')
 const connectMongoDbSession= require('connect-mongodb-session')(session)
+const jwt= require('jsonwebtoken')
 
 
 // file-imports
@@ -12,7 +13,7 @@ const { userDataValidation, isEmailRgex } = require('./utils/authUtils');
 const userModel = require('./models/userModel');
 const isAuth = require('./middleware/authMiddleware');
 const todoModel = require('./models/todoModel');
-const todovalidation = require('./utils/blogUtils');
+const {todovalidation, generateToken, sendVerificationMail} = require('./utils/todoUtils');
 const rateLimiting = require('./middleware/rateLimiting');
 
 
@@ -83,11 +84,11 @@ app.post("/register", async (req, res)=>{
     try {
         // username and email should be unique
         const userEmailExist= await userModel.findOne({email: email})
-        console.log("line 60", userEmailExist);
+
         if(userEmailExist) return res.send("user email already exists in the Db")
 
         const userUsernameExist= await userModel.findOne({username: username})
-        console.log("line 64", userUsernameExist);   // shows the data in the db
+
         if(userUsernameExist) return res.send("username already exists in the Db")
 
         // encrypt the password
@@ -104,6 +105,14 @@ app.post("/register", async (req, res)=>{
         //     data: userEntry
         // })
 
+        // generate token
+        const token= generateToken(email)
+        console.log(token);
+        console.log(jwt.verify(token, process.env.SECRET_KEY));   // verify method gives us the email
+
+        //send mail to user
+        sendVerificationMail(email, token)
+
         return res.redirect("/login")
     } catch (error) {
         // console.log(error);
@@ -111,6 +120,22 @@ app.post("/register", async (req, res)=>{
             message: "Internal server error",
             error: error
         })
+    }
+    
+    
+})
+
+app.get("/verifytoken/:token", async (req, res)=>{
+    console.log(req.params.token);
+    const token = req.params.token
+    const email = jwt.verify(token, process.env.SECRET_KEY)
+    console.log(email);
+
+    try {
+        await userModel.findOneAndUpdate({email : email}, {isEmailVerified: true})
+        return res.send("Email has been verified successfully")
+    } catch (error) {
+        return res.status(500).json(error)
     }
     
     
@@ -137,6 +162,10 @@ app.post("/login", async (req, res)=>{
         }
 
         if(!userEntry) return res.status(400).json("User not found, please register first")
+
+        // check for verified email
+        if(!userEntry.isEmailVerified)
+            return res.status(400).send("verify your email is before login")
 
 
         // compare the password
