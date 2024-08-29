@@ -165,7 +165,7 @@ app.post("/login", async (req, res)=>{
 
         // check for verified email
         if(!userEntry.isEmailVerified)
-            return res.status(400).send("verify your email is before login")
+            return res.status(400).send("An email has been sent for verification. Please verify your email address before logging in, and be sure to check your spam folder if you don't see it in your inbox.")
 
 
         // compare the password
